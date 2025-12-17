@@ -3,8 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UsersController;
-use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Registercontroller;
+use App\Http\Controllers\Kategoricontroller;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,13 +22,13 @@ Route::middleware(['auth'])->group(function(){
     //crud
     Route::get('/', [UsersController::class, 'Tampil_data'])->name('home');
     Route::delete('/user/{id}', [UsersController::class, 'destroy'])->name('hapus');
-    Route::get('/user/{id}', [UsersController::class, 'edit'])->name('edit');
     route::put('/user/{id}', [UsersController::class, 'update'])->name('update');
+    Route::post('/user', [UsersController::class, 'tambah_user'])->name('tambah_user');
     //logout
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
     //chart
     Route::get('/grafik', function () {
-        return view('grafik');
+        return view('front.grafik');
     })->name('grafik');
 });
 
@@ -44,4 +44,9 @@ Route::post('/register', [RegisterController::class, 'register'])->name('registe
 Route::get('/forgootpassword', function () {
     return view('forgootpassword');
 })->name('forgootpassword');
+
+
+//input kategori
+Route::get('/kategori',[KategoriController::class, 'index'])->name('kategori');
+Route::post('/kategori',[KategoriController::class, 'input_data'])->name('input_kategori');
 

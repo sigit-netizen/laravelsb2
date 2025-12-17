@@ -12,7 +12,7 @@ class UsersController extends Controller
     public function Tampil_data()
     {
         $users = User::all();
-        return view('welcome', compact('users'));
+        return view('backend.tableuser', compact('users'));
     }
     public function destroy($id)
     {
@@ -20,13 +20,6 @@ class UsersController extends Controller
         $user->delete();
 
         return redirect()->route('home');
-    }
-
-    public function edit($id)
-    {
-
-        $user = User::findOrFail($id);
-        return view('editUser', compact('user'));
     }
     public function update(Request $request, $id)
     {
@@ -47,5 +40,21 @@ class UsersController extends Controller
         $user->save();
 
         return redirect()->route('home');
+    }
+    public function tambah_user(Request $request)
+    {
+        $validated = $request->validate([
+            'name'     => 'required|string|max:255',
+            'email'    => 'required|email|unique:users,email', 
+            'password' => 'required|string|min:8',
+        ]);
+
+        User::create([
+            'name'     => $validated['name'],
+            'email'    => $validated['email'],
+            'password' => bcrypt($validated['password']),
+        ]);
+
+        return redirect()->route('home')->with('success', 'User berhasil ditambahkan.');
     }
 }

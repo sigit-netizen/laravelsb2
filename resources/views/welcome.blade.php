@@ -1,158 +1,71 @@
-@extends('base.index')
-@section('content')
-    <h1>daftar users</h1>
-    <div class="card shadow mb-4">
-        <div class="card-header py-3 d-flex align-items-center justify-content-between">
-            <h6 class="m-0 font-weight-bold text-primary">
-                DataTables Users
-            </h6>
-            <button type="button" class="btn btn-primary btn-md" data-toggle="modal" data-target="#tambahUserModal">
-                tambah User
-            </button>
-        </div>
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-bordered" id="dataTableUsers" width="100%" cellspacing="0">
-                    <thead>
-                        <tr class="text-center">
-                            <th>id</th>
-                            <th>Name</th>
-                            <th>email</th>
-                            <th>action</th>
-                        </tr>
-                    </thead>
-                    <tfoot>
-                        <tr class="text-center">
-                            <th>id</th>
-                            <th>Name</th>
-                            <th>email</th>
-                            <th>action</th>
-                        </tr>
-                    </tfoot>
-                    <tbody>
-                        @foreach ($users as $user)
-                            <div class="modal fade" id="editModal{{ $user->id }}" tabindex="-1">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <form action="{{ route('update', $user->id) }} " method="POST">
-                                            @csrf
-                                            @method('PUT')
+@extends('base.formatHead')
 
-                                            <div class="modal-header">
-                                                <h5 class="modal-title">Edit User</h5>
-                                                <button type="button" class="close" data-dismiss="modal">
-                                                    <span>&times;</span>
-                                                </button>
-                                            </div>
+<body id="page-top">
 
-                                            <div class="modal-body">
+    <!-- Page Wrapper -->
+    <div id="wrapper">
 
-                                                <div class="form-group">
-                                                    <label>Nama</label>
-                                                    <input type="text" name="name" class="form-control"
-                                                        value="{{ $user->name }}" required>
-                                                </div>
+        @include('base.sidebar')
 
-                                                <div class="form-group">
-                                                    <label>Email</label>
-                                                    <input type="email" name="email" class="form-control"
-                                                        value="{{ $user->email }}" required>
-                                                </div>
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
 
-                                            </div>
+            <!-- Main Content -->
+            <div id="content">
 
-                                            <div class="modal-footer">
-                                                <button class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                                                <button class="btn btn-primary">
-                                                    <i class="fas fa-save"></i> Update
-                                                </button>
-                                            </div>
 
-                                        </form>
+                @include('base.topbar')
+                <!-- Begin Page Content -->
 
-                                    </div>
-                                </div>
-                            </div>
+                <!-- /.container-fluid -->
+                <div class='container-fluid'>
+                    @yield('content')
+                </div>
 
-                            <tr>
-                                <td class="text-center">{{ $user->id }}</td>
-                                <td>{{ $user->name }}</td>
-                                <td>{{ $user->email }}</td>
-                                <td class="text-center">
-                                    <form action="{{ route('hapus', $user->id) }}" method="POST" class="d-inline">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button class="btn btn-danger btn-sm">hapus</button>
-                                    </form>
-                                    <button class="btn btn-success btn-sm" data-toggle="modal"
-                                        data-target="#editModal{{ $user->id }}">
-                                        Edit
-                                    </button>
-
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
             </div>
-        </div>
-    </div>
+            <!-- End of Main Content -->
 
-    <!-- Tambah User Modal -->
-    <div class="modal fade" id="tambahUserModal" tabindex="-1">
-        <div class="modal-dialog">
+            <!-- Footer -->
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; Your Website 2021</span>
+                    </div>
+                </div>
+            </footer>
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <form action="" method="POST">
-                    @csrf
-
-                    <div class="modal-header">
-                        <h5 class="modal-title">Tambah User</h5>
-                        <button type="button" class="close" data-dismiss="modal">
-                            <span>&times;</span>
-                        </button>
-                    </div>
-
-                    <div class="modal-body">
-
-                        <div class="form-group">
-                            <label>Nama</label>
-                            <input type="text" name="name" class="form-control" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Email</label>
-                            <input type="email" name="email" class="form-control" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Password</label>
-                            <input type="password" name="password" class="form-control" required>
-                        </div>
-
-                    </div>
-
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Simpan</button>
-                    </div>
-                </form>
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-footer">
+                    <form action="{{ route('logout') }}" method="post">
+                        @csrf
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                        <button class="btn btn-primary">Logout</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-@endsection
-@section('js-in')
-    <script src="{{ asset('sb2/vendor/datatables/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ asset('sb2/vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
-
-    <!-- Page level custom scripts -->
-    <script src="{{ asset('sb2/js/demo/datatables-demo.js') }}"></script>
-    <script>
-        $('#dataTableUsers').DataTable({
-            paging: true,
-            ordering: true,
-            info: true,
-            pageLength: 3,
-            lengthMenu: [2, 3, 5, 10, 25, 50]
-        });
-    </script>
-@endsection
+@extends('base.formatBottom')

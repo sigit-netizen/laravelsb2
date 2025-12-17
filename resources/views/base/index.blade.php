@@ -69,4 +69,4 @@
         </div>
     </div>
     @extends('base.formatBottom')
-    
+
