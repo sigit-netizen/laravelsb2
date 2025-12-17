@@ -25,7 +25,7 @@ class UsersController extends Controller
     {
         $validated = $request->validate([
             'name'     => 'required',
-            'email'    => 'required|email',
+            'email'    => 'required|email|unique:users,email,',
             'password' => 'nullable|min:8',
         ]);
 
@@ -39,13 +39,13 @@ class UsersController extends Controller
 
         $user->save();
 
-        return redirect()->route('home');
+        return redirect()->route('home')->with('success', 'User berhasil diperbarui.');
     }
     public function tambah_user(Request $request)
     {
         $validated = $request->validate([
             'name'     => 'required|string|max:255',
-            'email'    => 'required|email|unique:users,email', 
+            'email'    => 'required|email|unique:users,email',
             'password' => 'required|string|min:8',
         ]);
 
