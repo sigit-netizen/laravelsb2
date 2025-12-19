@@ -1,4 +1,4 @@
-@extends('base.index')
+@extends('backend.sidebar')
 @section('content')
     <h1>Daftar Users</h1>
 

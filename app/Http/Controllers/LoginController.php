@@ -14,6 +14,10 @@ class LoginController extends Controller
     {
         return view('login');
     }
+    public function home()
+    {
+        return view('base.index');
+    }
     public function login(Request $request)
     {
         $validatedData = $request->validate([
@@ -38,7 +42,17 @@ class LoginController extends Controller
         if (Auth::attempt($validatedData)) {
             $request->session()->regenerate();
 
-            return redirect()->route('home');
+            $role = Auth::user()->role;
+
+            if ($role === 'superadmin') {
+                return redirect()->route('adminhome');
+            }
+
+            if ($role === 'admin') {
+                return redirect()->route('adminhome');
+            }
+            if ($role === 'user')
+            return redirect()->route('panen');
         }
     }
 

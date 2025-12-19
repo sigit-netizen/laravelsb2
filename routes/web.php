@@ -5,6 +5,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\Registercontroller;
 use App\Http\Controllers\Kategoricontroller;
+use App\Http\Controllers\AdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,11 +20,15 @@ use App\Http\Controllers\Kategoricontroller;
 
 // hOME ROUTE
 Route::middleware(['auth'])->group(function(){
-    //crud
-    Route::get('/', [UsersController::class, 'Tampil_data'])->name('home');
-    Route::delete('/user/{id}', [UsersController::class, 'destroy'])->name('hapus');
-    route::put('/user/{id}', [UsersController::class, 'update'])->name('update');
-    Route::post('/user', [UsersController::class, 'tambah_user'])->name('tambah_user');
+    //user
+    Route::get('/user', [UsersController::class, 'index'])->name('usershome');
+    Route::get('/user/panen', [UsersController::class, 'panen'])->name('panen');
+    Route::post('/user/panen', [UsersController::class, 'input_panen'])->name('input_panen');
+    //admin
+    Route::get('/admin', [AdminController::class, 'index'])->name('adminhome');
+    Route::delete('/admnin/user/{id}', [AdminController::class, 'destroy'])->name('hapus');
+    route::put('/admnin/user/{id}', [AdminController::class, 'update'])->name('update');
+    Route::post('/admnin/user', [AdminController::class, 'tambah_user'])->name('tambah_user');
     //logout
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
     //chart

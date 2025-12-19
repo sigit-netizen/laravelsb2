@@ -1,4 +1,4 @@
-@extends('base.index')
+@extends('front.sidebar')
 
 @section('content')
     <!-- Page Heading -->

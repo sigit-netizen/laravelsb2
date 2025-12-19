@@ -4,9 +4,7 @@
     <body id="page-top">
         <!-- Page Wrapper -->
         <div id="wrapper">
-
-            @include('base.sidebar')
-
+            @yield('sidebar')
             <!-- Content Wrapper -->
             <div id="content-wrapper" class="d-flex flex-column">
 

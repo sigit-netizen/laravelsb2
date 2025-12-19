@@ -9,54 +9,32 @@ use function Laravel\Prompts\alert;
 
 class UsersController extends Controller
 {
-    public function Tampil_data()
+    public function index()
     {
-        $users = User::all();
-        return view('backend.tableuser', compact('users'));
+        return view('front.grafik');
     }
-    public function destroy($id)
+
+    public function panen()
     {
-        $user = User::findOrFail($id);
-        $user->delete();
-
-        return redirect()->route('home');
+        return view('front.dashboarduser');
     }
-    public function update(Request $request, $id)
+
+    public function input_panen(Request $request)
     {
-        $validated = $request->validate([
-            'name'     => 'required',
-            'email'    => 'required|email|unique:users,email,',
-            'password' => 'nullable|min:8',
-        ]);
+        // $request->validate([
+        //     'jenis_panen' => 'required|string|max:255',
+        //     'tanggal_panen' => 'required|date',
+        //     'jumlah_panen' => 'required|integer',
+        // ]);
 
-        $user = User::findOrFail($id);
+        // $panen = new \App\Models\Panen();
+        // $panen->users_id = auth()->user()->id;
+        // $panen->jenis_panen = $request->jenis_panen;
+        // $panen->tanggal_panen = $request->tanggal_panen;
+        // $panen->jumlah_panen = $request->jumlah_panen;
+        // $panen->save();
 
-        $user->name = $validated['name'];
-        $user->email = $validated['email'];
-        if ($request->filled('password')) {
-            $user->password = bcrypt($request->password);
-        }
-
-        $user->save();
-
-        return redirect()->route('home')->with('success', 'User berhasil diperbarui.');
+        // return redirect()->route('usershome')->with('success', 'Data panen berhasil ditambahkan.');
     }
-    public function tambah_user(Request $request)
-    {
-        $validated = $request->validate([
-            'name'     => 'required|string|max:255',
-            'email'    => 'required|email|unique:users,email',
-            'password' => 'required|string|min:8',
-            'role'     => 'string|max:25',
-        ]);
 
-        User::create([
-            'name'     => $validated['name'],
-            'email'    => $validated['email'],
-            'password' => bcrypt($validated['password']),
-            'role'     => $validated['role'],
-        ]);
-
-        return redirect()->route('home')->with('success', 'User berhasil ditambahkan.');
-    }
 }
