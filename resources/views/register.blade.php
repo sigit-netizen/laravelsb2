@@ -1,4 +1,5 @@
-@include('base.formatHead')
+@extends('base.format')
+@section('content1')
 
 <body class="bg-gradient-primary">
 
@@ -56,4 +57,4 @@
 
     </div>
 
-    @include('base.formatBottom')
+@endsection

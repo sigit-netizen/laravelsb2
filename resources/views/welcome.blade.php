@@ -1,4 +1,5 @@
-@extends('base.formatHead')
+@extends('base.format')
+@section('content1')
 
 <body id="page-top">
 
@@ -68,4 +69,4 @@
             </div>
         </div>
     </div>
-@extends('base.formatBottom')
+@endsection

@@ -1,4 +1,5 @@
-@extends('base.formatHead')
+@extends('base.format')
+@section('content1')
 
 <body class="bg-gradient-primary">
 
@@ -73,6 +74,7 @@
         </div>
 
     </div>
+@endsection
 
     @section('js-in')
         <script>
@@ -83,4 +85,4 @@
             });
         </script>
     @endsection
-    @include('base.formatBottom')
+
