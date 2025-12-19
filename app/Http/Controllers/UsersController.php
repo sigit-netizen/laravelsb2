@@ -47,12 +47,14 @@ class UsersController extends Controller
             'name'     => 'required|string|max:255',
             'email'    => 'required|email|unique:users,email',
             'password' => 'required|string|min:8',
+            'role'     => 'string|max:25',
         ]);
 
         User::create([
             'name'     => $validated['name'],
             'email'    => $validated['email'],
             'password' => bcrypt($validated['password']),
+            'role'     => $validated['role'],
         ]);
 
         return redirect()->route('home')->with('success', 'User berhasil ditambahkan.');

@@ -15,7 +15,8 @@
     <div class="card shadow mb-4">
         <div class="card-header py-3 d-flex align-items-center justify-content-between">
             <h6 class="m-0 font-weight-bold text-primary">DataTables Users</h6>
-            <button type="button" class="btn btn-primary btn-md rounded-" data-toggle="modal" data-target="#tambahUserModal">
+            <button type="button" class="btn btn-primary btn-md rounded-" data-toggle="modal"
+                data-target="#tambahUserModal">
                 Tambah User
             </button>
         </div>
@@ -29,23 +30,26 @@
                             <th>ID</th>
                             <th>Name</th>
                             <th>Email</th>
+                            <th>rule</th>
                             <th>Action</th>
                         </tr>
                     </thead>
-                    <tfoot>
+                    {{-- <tfoot>
                         <tr class="text-center">
                             <th>ID</th>
                             <th>Name</th>
                             <th>Email</th>
+                            <th>rule</th>
                             <th>Action</th>
                         </tr>
-                    </tfoot>
+                    </tfoot> --}}
                     <tbody>
                         @foreach ($users as $user)
                             <tr>
                                 <td class="text-center">{{ $user->id }}</td>
                                 <td>{{ $user->name }}</td>
                                 <td>{{ $user->email }}</td>
+                                <td class="text-center">{{ $user->role }}</td>
                                 <td class="text-center">
                                     <form action="{{ route('hapus', $user->id) }}" method="POST" class="d-inline">
                                         @csrf
@@ -97,7 +101,8 @@
 
                             <div class="form-group">
                                 <label>Nama</label>
-                                <input type="text" name="name" class="form-control @error('name') is-invalid @enderror"
+                                <input type="text" name="name"
+                                    class="form-control @error('name') is-invalid @enderror"
                                     value="{{ old('name', $user->name) }}" required>
                                 @error('name')
                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -106,7 +111,8 @@
 
                             <div class="form-group">
                                 <label>Email</label>
-                                <input type="email" name="email" class="form-control @error('email') is-invalid @enderror"
+                                <input type="email" name="email"
+                                    class="form-control @error('email') is-invalid @enderror"
                                     value="{{ old('email', $user->email) }}" required>
                                 @error('email')
                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -182,6 +188,18 @@
                             <input type="password" name="password"
                                 class="form-control @error('password') is-invalid @enderror" required>
                             @error('password')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label>Role</label>
+                            <select name="role" class="form-control @error('role') is-invalid @enderror">
+                                <option value="">-- Pilih Role --</option>
+                                <option value="superadmin" {{ old('role') == 'superadmin' ? 'selected' : '' }}>superAdmin</option>
+                                <option value="admin" {{ old('role') == 'admin' ? 'selected' : '' }}>Admin</option>
+                                <option value="user" {{ old('role') == 'user' ? 'selected' : '' }}>User</option>
+                            </select>
+                            @error('role')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>

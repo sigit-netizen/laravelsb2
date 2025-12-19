@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('panen', function (Blueprint $table) {
             $table->id();
             $table->foreignId('users_id')->constrained('users');
-            $table->foreignId('panen_id')->constrained('panen');
+            $table->string('jenis_panen');
             $table->date('tanggal_panen');
             $table->integer('jumlah_panen');
             $table->timestamps();
