@@ -1,5 +1,3 @@
-@extends('base.index')
-@section('sidebar')
     <!-- Sidebar -->
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
@@ -18,9 +16,20 @@
 
         <!-- Nav Item - Dashboard -->
         <li class="nav-item active">
-            <a class="nav-link" href={{ route('adminhome') }}>
+            @if (Auth::user()->role == 'admin')
+                <a class="nav-link" href={{ route('adminhome') }}>
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Dashboard</span></a>
+            @else
+                <a class="nav-link" href={{ route('usershome') }}>
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Dashboard</span></a>
+        <li class="nav-item active">
+            <a class="nav-link" href={{ route('grafik') }}>
                 <i class="fas fa-fw fa-tachometer-alt"></i>
-                <span>Dashboard</span></a>
+                <span>Grafik panen</span></a>
+        </li>
+        @endif
         </li>
         {{-- <li class="nav-item active">
                 <a class="nav-link" href={{ route('grafik') }}>
@@ -133,4 +142,3 @@
 
     </ul>
     <!-- End of Sidebar -->
-@endsection

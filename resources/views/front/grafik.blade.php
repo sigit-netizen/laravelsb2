@@ -1,4 +1,11 @@
-@extends('front.sidebar')
+@if(Auth::user()->role != 'user')
+    @php
+        header("Location: " . URL::to('admin') );
+        exit();
+    @endphp
+@else
+
+@extends('layouts.index')
 
 @section('content')
     <!-- Page Heading -->
@@ -138,3 +145,5 @@
         });
     </script>
 @endsection
+
+@endif

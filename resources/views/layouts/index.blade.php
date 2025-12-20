@@ -1,10 +1,10 @@
-@extends('base.format')
+@extends('layouts.format')
 @section('content1')
 
     <body id="page-top">
         <!-- Page Wrapper -->
         <div id="wrapper">
-            @yield('sidebar')
+            @include('layouts.sidebar')
             <!-- Content Wrapper -->
             <div id="content-wrapper" class="d-flex flex-column">
 
@@ -12,7 +12,7 @@
                 <div id="content">
 
 
-                    @include('base.topbar')
+                    @include('layouts.topbar')
                     <!-- Begin Page Content -->
 
                     <!-- /.container-fluid -->

@@ -1,4 +1,10 @@
-@extends('backend.sidebar')
+@if(Auth::user()->role != 'admin')
+    @php
+        header("Location: " . URL::to('usershome') );
+        exit();
+    @endphp
+@else
+@extends('layouts.index')
 @section('content')
     <h1>Daftar Users</h1>
 
@@ -44,20 +50,20 @@
                         </tr>
                     </tfoot> --}}
                     <tbody>
-                        @foreach ($users as $user)
+                        @foreach ($users as $row_user)
                             <tr>
-                                <td class="text-center">{{ $user->id }}</td>
-                                <td>{{ $user->name }}</td>
-                                <td>{{ $user->email }}</td>
-                                <td class="text-center">{{ $user->role }}</td>
+                                <td class="text-center">{{ $row_user->id }}</td>
+                                <td>{{ $row_user->name }}</td>
+                                <td>{{ $row_user->email }}</td>
+                                <td class="text-center">{{ $row_user->role }}</td>
                                 <td class="text-center">
-                                    <form action="{{ route('hapus', $user->id) }}" method="POST" class="d-inline">
+                                    <form action="{{ route('user.destroy', $row_user->id) }}" method="POST" class="d-inline">
                                         @csrf
                                         @method('DELETE')
                                         <button class="btn btn-danger btn-sm">Hapus</button>
                                     </form>
                                     <button class="btn btn-success btn-sm" data-toggle="modal"
-                                        data-target="#editModal{{ $user->id }}">
+                                        data-target="#editModal{{ $row_user->id }}">
                                         Edit
                                     </button>
                                 </td>
@@ -71,25 +77,25 @@
     </div>
 
     <!-- ============ MODAL EDIT (ditempatkan di luar loop tbody) ============ -->
-    @foreach ($users as $user)
-        <div class="modal fade" id="editModal{{ $user->id }}" tabindex="-1">
+    @foreach ($users as $row_user)
+        <div class="modal fade" id="editModal{{ $row_user->id }}" tabindex="-1">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <form action="{{ route('update', $user->id) }}" method="POST">
+                    <form action="{{ route('user.update', $row_user->id) }}" method="POST">
                         @csrf
                         @method('PUT')
                         <!-- Penanda asal form -->
-                        <input type="hidden" name="_from_modal" value="edit_{{ $user->id }}">
+                        <input type="hidden" name="_from_modal" value="edit_{{ $row_user->id }}">
 
                         <div class="modal-header">
-                            <h5 class="modal-title">Edit User</h5>
+                            <h5 class="modal-title">Edit row_user</h5>
                             <button type="button" class="close" data-dismiss="modal">
                                 <span>&times;</span>
                             </button>
                         </div>
 
                         <div class="modal-body">
-                            @if ($errors->any() && old('_from_modal') === "edit_{$user->id}")
+                            @if ($errors->any() && old('_from_modal') === "edit_{$row_user->id}")
                                 <div class="alert alert-danger">
                                     <ul class="mb-0">
                                         @foreach ($errors->all() as $error)
@@ -103,7 +109,7 @@
                                 <label>Nama</label>
                                 <input type="text" name="name"
                                     class="form-control @error('name') is-invalid @enderror"
-                                    value="{{ old('name', $user->name) }}" required>
+                                    value="{{ old('name', $row_user->name) }}" required>
                                 @error('name')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -113,7 +119,7 @@
                                 <label>Email</label>
                                 <input type="email" name="email"
                                     class="form-control @error('email') is-invalid @enderror"
-                                    value="{{ old('email', $user->email) }}" required>
+                                    value="{{ old('email', $row_user->email) }}" required>
                                 @error('email')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -242,3 +248,4 @@
         @endif
     </script>
 @endsection
+@endif

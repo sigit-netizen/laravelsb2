@@ -1,72 +1,31 @@
-@extends('base.format')
+@extends('layouts.format')
+
 @section('content1')
+<div class="container-fluid">
 
-<body id="page-top">
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Selamat Datang!</h1>
+    </div>
 
-    <!-- Page Wrapper -->
-    <div id="wrapper">
-
-        @include('base.sidebar')
-
-        <!-- Content Wrapper -->
-        <div id="content-wrapper" class="d-flex flex-column">
-
-            <!-- Main Content -->
-            <div id="content">
-
-
-                @include('base.topbar')
-                <!-- Begin Page Content -->
-
-                <!-- /.container-fluid -->
-                <div class='container-fluid'>
-                    @yield('content')
+    <!-- Welcome Card -->
+    <div class="row">
+        <div class="col-xl-12 col-lg-12">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Dashboard Selamat Datang</h6>
                 </div>
-
-            </div>
-            <!-- End of Main Content -->
-
-            <!-- Footer -->
-            <footer class="sticky-footer bg-white">
-                <div class="container my-auto">
-                    <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2021</span>
+                <div class="card-body text-center">
+                    <div class="mb-4">
+                        <i class="fas fa-home fa-3x text-primary"></i>
                     </div>
-                </div>
-            </footer>
-            <!-- End of Footer -->
-
-        </div>
-        <!-- End of Content Wrapper -->
-
-    </div>
-    <!-- End of Page Wrapper -->
-
-    <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
-        <i class="fas fa-angle-up"></i>
-    </a>
-
-    <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                <div class="modal-footer">
-                    <form action="{{ route('logout') }}" method="post">
-                        @csrf
-                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                        <button class="btn btn-primary">Logout</button>
-                    </form>
+                    <p class="lead">
+                            Selamat datang di sistem kami. Silakan <a href="{{ route('login') }}">login</a> untuk melanjutkan.
+                    </p>
                 </div>
             </div>
         </div>
     </div>
+
+</div>
 @endsection

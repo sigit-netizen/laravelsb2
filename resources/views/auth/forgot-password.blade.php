@@ -1,4 +1,4 @@
-@extends('base.format')
+@extends('layouts.format')
 @section('content1')
 
     <body class="bg-gradient-primary">

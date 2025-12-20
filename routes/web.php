@@ -1,11 +1,9 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\LoginController;
-use App\Http\Controllers\UsersController;
-use App\Http\Controllers\Registercontroller;
-use App\Http\Controllers\Kategoricontroller;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\UsersController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,40 +16,27 @@ use App\Http\Controllers\AdminController;
 |
 */
 
-// hOME ROUTE
-Route::middleware(['auth'])->group(function(){
-    //user
-    Route::get('/user', [UsersController::class, 'index'])->name('usershome');
-    Route::get('/user/panen', [UsersController::class, 'panen'])->name('panen');
-    Route::post('/user/panen', [UsersController::class, 'input_panen'])->name('input_panen');
-    //admin
-    Route::get('/admin', [AdminController::class, 'index'])->name('adminhome');
-    Route::delete('/admnin/user/{id}', [AdminController::class, 'destroy'])->name('hapus');
-    route::put('/admnin/user/{id}', [AdminController::class, 'update'])->name('update');
-    Route::post('/admnin/user', [AdminController::class, 'tambah_user'])->name('tambah_user');
-    //logout
-    Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
-    //chart
-    Route::get('/grafik', function () {
-        return view('front.grafik');
-    })->name('grafik');
+Route::get('/', function () {
+    return view('welcome');
 });
 
-//lOGIN ROUTE
-Route::get('/login', [LoginController::class, 'index'])->name('login');
-Route::post('/login', [LoginController::class, 'login'])->name('login.post');
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    //admin
+    Route::get('/adminhome', [AdminController::class, 'index'])->name('adminhome');
+    Route::delete('/user/{id}', [AdminController::class, 'destroy'])->name('user.destroy');
+    Route::put('/user/{id}', [AdminController::class, 'update'])->name('user.update');
+    Route::post('/tambah_user', [AdminController::class, 'tambah_user'])->name('tambah_user');
 
-// REGISTER ROUTE
-Route::get('/register', [RegisterController::class, 'index'])->name('register');
-Route::post('/register', [RegisterController::class, 'register'])->name('register.post');
+    //user
+    Route::get('/usershome', [UsersController::class, 'index'])->name('usershome');
+    Route::get('/panen', [UsersController::class, 'panen'])->name('grafik');
+    Route::post('/input_panen', [UsersController::class, 'input_panen'])->name('input_panen');
 
-// FORGOOT PASSWORD ROUTE
-Route::get('/forgootpassword', function () {
-    return view('forgootpassword');
-})->name('forgootpassword');
+});
 
 
-//input kategori
-Route::get('/kategori',[KategoriController::class, 'index'])->name('kategori');
-Route::post('/kategori',[KategoriController::class, 'input_data'])->name('input_kategori');
 
+require __DIR__.'/auth.php';

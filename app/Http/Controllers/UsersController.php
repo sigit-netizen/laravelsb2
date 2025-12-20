@@ -11,12 +11,12 @@ class UsersController extends Controller
 {
     public function index()
     {
-        return view('front.grafik');
+        return view('front.dashboarduser');
     }
 
     public function panen()
     {
-        return view('front.dashboarduser');
+        return view('front.grafik');
     }
 
     public function input_panen(Request $request)

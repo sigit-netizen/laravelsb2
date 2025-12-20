@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Auth;
 
 class AdminController extends Controller
 {
@@ -23,7 +24,7 @@ class AdminController extends Controller
     {
         $validated = $request->validate([
             'name'     => 'required',
-            'email'    => 'required|email|unique:users,email,',
+            'email'    => 'required|email',
             'password' => 'nullable|min:8',
         ]);
 
